@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <h3>Formulario tareas</h3>
+    
+    <!--begin form-->
+    <form class="form" [formGroup]="form" (ngSubmit)="handleSubmit()">
+        <div class="mb-3">
+            <h5>Nombre</h5>
+            <input type="text" name="name" formControlName="name">
+            @if(form.controls.name.hasError('required')){
+                <p style="color: red;">nombre es requerido</p>
+            }
+            @if(form.controls.name.hasError('minlength')){
+                <p style="color: red;">mínimo longitud de 2</p>
+            }
+
+            @if(form.controls.name.hasError('maxlength')){
+                <p style="color: red;">máximo longitud 20</p>
+            }
+
+        </div>
+
+        <div class="mb-3">
+            <h5>Prioridad</h5>
+            <input type="radio" [value]="priorityEnum.LOW" name="priority" formControlName="priority"> baja
+            <input type="radio" [value]="priorityEnum.MEDIUM" name="priority" formControlName="priority"> media
+            <input type="radio" [value]="priorityEnum.HIGH" name="priority" formControlName="priority"> alta
+        </div>
+
+        <div class="mb-3">
+            <h5>Descripción</h5>
+            <textarea name="description" formControlName="description" ></textarea>
+            @if(form.controls.description.hasError('required')){
+                <p style="color: red;">descripción requerida</p>
+            }
+
+            @if(form.controls.description.hasError('minlength')){
+                <p style="color: red;">longitud mínima de 5</p>
+            }
+
+            @if(form.controls.description.hasError('maxlength')){
+                <p style="color: red;">longitud máxima 120</p>
+            }
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Salvar</button>
+    </form>
+    <!--end form-->
+</div>

@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <h3>Tabla Tareas</h3>
+
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">nombre</th>
+                <th scope="col">descripción</th>
+                <th scope="col">prioridad</th>
+                <th scope="col">terminada</th>
+            </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+            @for (task of tasks(); track $index) {
+                 <tr>
+                    <td>{{task.id}}</td>
+                    <td>{{task.name}}</td>
+                    <td>{{task.description}}</td>
+                    <td>{{task.priority}}</td>
+                    <td>
+                        <input type="checkbox" [checked]="task.done" 
+                        (change)="task.done = !task.done">
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="deleteTask(task.id)">delete</button>
+                    </td>
+                 </tr> 
+            }
+        </tbody>
+    </table>
+
+</div>
