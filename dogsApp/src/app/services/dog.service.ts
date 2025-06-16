@@ -40,5 +40,15 @@ export class DogService {
       })
     )
   }
+
+  updateDog(data: Dog): Observable<void>{
+    return this.http.put<void>(this.baseUri, data)
+    .pipe(
+      catchError(err => {
+        console.log("Error actualizando la información: ", err);
+        return throwError(()=> new Error("Error actualizando la información"));
+      })
+    )
+  }
 }
 

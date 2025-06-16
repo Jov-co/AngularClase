@@ -1,1 +1,35 @@
-<p>dog-table works!</p>
+<div class="demo-button-container">
+  <button mat-raised-button color="primary" routerLink="/add" class="demo-button">
+    Añadir perro
+  </button>
+</div>
+
+<table mat-table [dataSource]="dogs()" class="mat-elevation-z8 demo-table">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="breed">
+    <th mat-header-cell *matHeaderCellDef>Raza</th>
+    <td mat-cell *matCellDef="let dogs">{{dogs.breed}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Descripción</th>
+    <td mat-cell *matCellDef="let dogs">{{dogs.description}}</td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let dog">
+      <button
+        mat-button="elevated"
+        mat-raised-button
+        (click)="deleteDog(dog.id)"
+        class="demo-button">
+        Eliminar
+      </button>
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
