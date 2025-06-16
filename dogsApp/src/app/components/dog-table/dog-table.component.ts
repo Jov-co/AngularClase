@@ -9,7 +9,13 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dog-table',
-  imports: [MatTableModule, MatIconModule, MatCardModule, MatButtonModule, RouterLink],
+  imports: [
+    MatTableModule, 
+    MatIconModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    RouterLink
+  ],
   templateUrl: './dog-table.component.html',
   styleUrl: './dog-table.component.css'
 })
