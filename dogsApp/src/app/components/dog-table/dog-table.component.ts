@@ -20,12 +20,13 @@ import { RouterLink } from '@angular/router';
   styleUrl: './dog-table.component.css'
 })
 export class DogTableComponent {
-  displayedColumns: string[] = ['breed', 'description', 'actions'];
+  displayedColumns: string[] = ['image', 'breed', 'description', 'actions'];
   @ViewChild(MatTable) table!: MatTable<Dog>;
 
   private service: DogService = inject(DogService);
   dogs = signal<Dog[]>([]);
   private suscriptions: Array<any> = [];
+  defaultImage = 'https://www.zooplus.es/magazine/wp-content/uploads/2019/03/Perro-chihuahua.webp';
 
   ngOnInit() {
     this.service.getDogs().subscribe({
@@ -57,6 +58,4 @@ export class DogTableComponent {
       }
     });
   }
-
-
 }

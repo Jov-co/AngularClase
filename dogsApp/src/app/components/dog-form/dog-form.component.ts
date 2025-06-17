@@ -53,7 +53,7 @@ export class DogFormComponent {
       {
         validators: [
           Validators.required,
-          Validators.pattern('https?://.+.(jpg|jpeg|png)$')
+          // Validators.pattern('https?://.+.(jpg|jpeg|png)$')
         ],
         updateOn: 'change'
       }
