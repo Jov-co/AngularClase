@@ -21,6 +21,7 @@ export class CoursesComponent {
   adminPanel: boolean = false;
   popupVisible = false;
   selectedCourse: Course | null = null;
+  type : 'create' | 'edit' = 'create';
 
   ngOnInit() {
     this.refreshCourses();
@@ -53,11 +54,13 @@ export class CoursesComponent {
   openCreatePopup() {
     this.selectedCourse = null;
     this.popupVisible = true;
+    this.type = 'create';
   }
 
   openEditPopup(course: Course) {
     this.selectedCourse = course;
     this.popupVisible = true;
+    this.type = 'edit';
   }
 
   onSaveCourse(course: Course) {

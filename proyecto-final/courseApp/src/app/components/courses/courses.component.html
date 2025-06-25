@@ -51,6 +51,7 @@
 <app-course-popup
   [visible]="popupVisible"
   [course]="selectedCourse"
+  [type]="type"
   (save)="onSaveCourse($event)"
   (close)="popupVisible = false">
 </app-course-popup>

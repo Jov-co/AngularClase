@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject, SimpleChanges, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Course } from '../../interfaces/course.interface';
 import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -12,40 +12,58 @@ import {MatButtonModule} from '@angular/material/button';
   styleUrl: './course-popup.component.css'
 })
 export class CoursePopupComponent {
-  @Input() course: Course | null = null;
+  @Input() type:  'create' | 'edit' = 'create';
+  @Input() set course(value: Course | null) {
+    if (value != null){
+      this.courseSignal.set(value);
+    }
+  }
+  courseSignal = signal<Course | null>(null);
   @Input() visible: boolean = false;
   @Output() save = new EventEmitter<Course>();
   @Output() close = new EventEmitter<void>();
 
   private builder:FormBuilder=inject(FormBuilder);
-
   form = this.builder.group({
-    name: [this.course?.name || '', 
-      Validators.required, Validators.minLength(2), Validators.maxLength(50)
-    ],
-    description: [this.course?.description || '', 
-      Validators.required, Validators.minLength(5), Validators.maxLength(120)
-    ],
-    duration: [this.course?.duration || '', Validators.required],
-    level: [this.course?.level || '', Validators.required],
-    price: [this.course?.price || 0, [Validators.required, Validators.min(0)]]
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+      duration: ['', Validators.required],
+      level: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(0)]]
   });
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['course'] && this.course) {
-      this.form.patchValue({
-        name: this.course.name,
-        description: this.course.description,
-        duration: this.course.duration,
-        level: this.course.level,
-        price: this.course.price
-      });
-    }
+  constructor() {
+    effect(() => {
+      const c = this.courseSignal();
+      if (c) {
+        this.form.patchValue({
+          name: c.name,
+          description: c.description,
+          duration: c.duration,
+          level: c.level,
+          price: c.price
+        });
+      } else {
+        this.form.reset();
+      }
+    });
+
+    window.addEventListener('keydown', this.handleEscape);
   }
+
+  ngOnDestroy() {
+    window.removeEventListener('keydown', this.handleEscape);
+  }
+
+  handleEscape = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && this.visible) {
+      this.onClose();
+    }
+  };
 
   onSave() {
     let courseData: Course = {
-      id: this.course?.id || undefined,
+      id: this.courseSignal()?.id || undefined,
       name: this.form.value.name!,
       description: this.form.value.description!,
       duration: this.form.value.duration!,
@@ -57,6 +75,8 @@ export class CoursePopupComponent {
   }
 
   onClose() {
+    this.form.reset();
     this.close.emit();
+    this.courseSignal.set(null);
   }
 }

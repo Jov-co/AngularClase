@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="popup-actions">
-                <button mat-flat-button color="primary" type="submit">{{ course ? 'Actualizar' : 'Crear' }}</button>
+                <button mat-flat-button color="primary" type="submit">{{ courseSignal() !== null ? 'Actualizar' : 'Crear' }}</button>
                 <button mat-flat-button color="warn" type="button" (click)="onClose()">Cancelar</button>
             </div>
         </form>
