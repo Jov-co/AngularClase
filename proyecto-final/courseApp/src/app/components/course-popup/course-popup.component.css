@@ -1,0 +1,82 @@
+.popup-backdrop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: #fff;
+  padding: 32px 32px 24px 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  width: 600px;
+  max-width: 98vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-title {
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.popup-form-grid {
+  display: flex;
+  gap: 24px;
+}
+
+.form-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.popup-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #222;
+}
+
+.popup-form input,
+.popup-form textarea,
+.popup-form select {
+  margin-top: 6px;
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fafafa;
+  resize: none;
+}
+
+.popup-form textarea {
+  min-height: 60px;
+  max-height: 120px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.error {
+  color: #e53935;
+  font-size: 0.92em;
+  margin: 4px 0 0 0;
+}

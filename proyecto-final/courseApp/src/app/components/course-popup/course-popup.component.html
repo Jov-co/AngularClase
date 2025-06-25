@@ -1,0 +1,74 @@
+@if(visible) {
+<div class="popup-backdrop">
+    <div class="popup">
+        <h2 class="popup-title">{{ course ? 'Editar Curso' : 'Crear Curso' }}</h2>
+        <form class="popup-form" [formGroup]="form" (ngSubmit)="onSave()">
+            <div class="popup-form-grid">
+                <div class="form-col">
+                    <label>
+                        Nombre:
+                        <input formControlName="name" name="name" required />
+                        @if(form.controls.name.hasError('required')){
+                        <p class="error">Nombre es requerido</p>
+                        }
+                        @if(form.controls.name.hasError('minlength')){
+                        <p class="error">Mínimo longitud de 2</p>
+                        }
+                        @if(form.controls.name.hasError('maxlength')){
+                        <p class="error">Máximo longitud 50</p>
+                        }
+                    </label>
+                    <label>
+                        Duración:
+                        <input formControlName="duration" name="duration" required />
+                        @if(form.controls.duration.hasError('required')){
+                        <p class="error">Duración requerida</p>
+                        }
+                    </label>
+                    <label>
+                        Nivel:
+                        <select formControlName="level" name="level" required>
+                            <option value="" disabled selected>Seleccione un nivel</option>
+                            <option value="beginner">Principiante</option>
+                            <option value="intermediate">Intermedio</option>
+                            <option value="advanced">Avanzado</option>
+                        </select>
+                        @if(form.controls.level.hasError('required')){
+                        <p class="error">Nivel requerido</p>
+                        }
+                    </label>
+                </div>
+                <div class="form-col">
+                    <label>
+                        Descripción:
+                        <textarea name="description" formControlName="description"></textarea>
+                        @if(form.controls.description.hasError('required')){
+                        <p class="error">Descripción requerida</p>
+                        }
+                        @if(form.controls.description.hasError('minlength')){
+                        <p class="error">Longitud mínima de 5</p>
+                        }
+                        @if(form.controls.description.hasError('maxlength')){
+                        <p class="error">Longitud máxima 120</p>
+                        }
+                    </label>
+                    <label>
+                        Precio:
+                        <input type="number" formControlName="price" name="price" required />
+                        @if(form.controls.price.hasError('required')){
+                        <p class="error">Precio requerido</p>
+                        }
+                        @if(form.controls.price.hasError('min')){
+                        <p class="error">Mínimo 0</p>
+                        }
+                    </label>
+                </div>
+            </div>
+            <div class="popup-actions">
+                <button mat-flat-button color="primary" type="submit">{{ course ? 'Actualizar' : 'Crear' }}</button>
+                <button mat-flat-button color="warn" type="button" (click)="onClose()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+}
