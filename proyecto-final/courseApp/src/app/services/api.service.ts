@@ -10,7 +10,7 @@ import { Course } from '../interfaces/course.interface';
 export class ApiService {
 
   private http:HttpClient=inject(HttpClient)
-  // private baseURL:string="/api/item";
+  // private baseURL:string="/api/course";
   private baseURL:string="http://localhost:8084/course";
 
 
